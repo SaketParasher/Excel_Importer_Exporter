@@ -1,0 +1,77 @@
+<<!DOCTYPE html>
+<html ng-app="excelApp">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+    <h2>This is Index Page.</h2>
+    <div ng-controller="appController">
+        
+        <div class="container">
+                <form id="createData" name="dataForm">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputEmail4">Name</label>
+                            <input type="text" name="name" class="form-control" ng-model="data.name" id="inputName4" placeholder="Name">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Email</label>
+                            <input type="email" name="email" class="form-control" ng-model="data.email" id="inputEmail4" placeholder="Email">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputAddress">Address</label>
+                          <input type="text" name="address" class="form-control" ng-model="data.address" id="inputAddress" placeholder="1234 Main St">
+                        </div>
+                        
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" name="city" ng-model="data.city" class="form-control" id="inputCity">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" name="city" class="form-control">
+                              <option selected>Choose...</option>
+                              <option>...</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" name="zip" class="form-control" ng-model="data.zip" id="inputZip">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                              Check me out
+                            </label>
+                          </div>
+                        </div>
+                        <button type="submit" ng-click="saveData(data,dataForm)" class="btn btn-primary">Sign in</button>
+                      </form>
+        </div>
+ 
+    </div>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.9/angular-resource.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-route.min.js"></script>
+
+        <script src="./script/app.js"></script>
+        <script src="./script/dataService.js"></script>
+        <script src="./script/appController.js"></script>
+</body>
+</html>
