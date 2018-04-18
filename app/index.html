@@ -1,66 +1,168 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="excelApp">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/app.css">
 
 </head>
 <body>
 
-    <h2>This is Index Page.</h2>
-    <div ng-controller="appController">
-        
-        <div class="container">
-                <form id="createData" name="dataForm">
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="inputEmail4">Name</label>
-                            <input type="text" name="name" class="form-control" ng-model="data.name" id="inputName4" placeholder="Name">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputPassword4">Email</label>
-                            <input type="email" name="email" class="form-control" ng-model="data.email" id="inputEmail4" placeholder="Email">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputAddress">Address</label>
-                          <input type="text" name="address" class="form-control" ng-model="data.address" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="inputCity">City</label>
-                            <input type="text" name="city" ng-model="data.city" class="form-control" id="inputCity">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputState">State</label>
-                            <select id="inputState" name="city" class="form-control">
-                              <option selected>Choose...</option>
-                              <option>...</option>
-                            </select>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label for="inputZip">Zip</label>
-                            <input type="text" name="zip" class="form-control" ng-model="data.zip" id="inputZip">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                              Check me out
-                            </label>
-                          </div>
-                        </div>
-                        <button type="submit" ng-click="saveData(data,dataForm)" class="btn btn-primary">Sign in</button>
-                      </form>
-        </div>
- 
+    
+<div ng-controller="appController">
+    
+    <div class="container-fluid">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand" width="112" height="48">
+            <a class="navbar-item" href="https://bulma.io">
+              <!--<img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">-->
+                <img src="./img/header_tagline_BLACKen_170x59.png"  width="112" height="48">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+        </nav>
     </div>
+        
+<div class="container">
+    
+    <h2 style="margin-top:25px;padding-bottom:5px">Pre-Check-in Registration Form</h2>
+    <hr />
+
+    <div class="row col-md-6 fieldContainer" style="margin-top:25px;padding-bottom:35px">
+        <div class="field">
+              <label class="label">Reservation No.</label>
+              <div class="control">
+                <input class="input" type="text" ng-model="data.rid" placeholder="Reservation Number">
+              </div>
+        </div>
+
+        <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" type="text" ng-model="data.name" placeholder="Full Name here">
+                <!--<span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>-->
+              </div>
+              <!--<p class="help is-success">This username is available</p>-->
+        </div>
+
+        <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="email" ng-model="data.email" placeholder="hotelsLuxury@rosewoodhotels.com">
+                <!--<span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>-->
+              </div>
+              <!--<p class="help is-danger">This email is invalid</p>-->
+        </div>
+        
+        <div class="field">
+              <label class="label">Contact</label>
+              <div class="control">
+                <input class="input" type="text" ng-model="data.contact" placeholder="Mobile Number">
+                <!--<span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>-->
+              </div>
+              <!--<p class="help is-danger">This email is invalid</p>-->
+        </div>
+
+        <div class="field">
+          <label class="label">Gender</label>
+          <div class="control">
+            <div class="select">
+              <select ng-model="data.gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Leave us a Message</label>
+          <div class="control">
+            <textarea class="textarea" rows="3" ng-model="data.message" placeholder="Your message"></textarea>
+          </div>
+        </div>
+
+        
+        <div class="field">
+          <div class="control">
+            
+            <span  id="chk"  ng-click="checkMethod()"  style="margin-right:3px">
+                    <input type="checkbox" id="chkbox" ng-model="data.offersMail" style="display:none" />
+                    <i ng-if="!check" class="far fa-1x fa-square"></i>
+                    <i ng-if="check" class="far fa-1x fa-check-square"></i>
+            </span>
+            <label for="chk" class="checkbox" ng-click="checkMethod()" >
+                <span>
+                     Mail me exciting offers.
+                </span>
+            </label>
+           
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            
+            <label class="radio">
+                    <input type="radio" id="yesradio" name="question" value="true"> 
+                    <!--<i ng-if="!check" class="far fa-1x fa-radio"></i>-->
+                Yes
+            </label>
+            <label class="radio">
+              <input type="radio" id="noradio" name="question" value="false">
+              No
+            </label>
+              <label class="radio" style="text-decoration:underline">
+                Are you a Prime Member ?   
+            </label>
+          </div>
+        </div>
+        
+
+        <div class="field is-grouped" style="margin-top:15px">
+          
+          <div class="control">
+            <button class="button is-link" ng-click="fillForm()">Fill Form</button>
+          </div>
+          <div class="control">
+            <button class="button is-link" ng-click="saveData(data)">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-text">Cancel</button>
+          </div>
+        </div>
+        
+     </div><!-- Field Container Ends here-->
+        
+    </div><!-- Container Div Ends here-->
+ 
+</div><!-- Controller Div Ends here-->
 
 
 

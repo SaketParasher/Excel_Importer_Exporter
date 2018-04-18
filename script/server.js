@@ -1,7 +1,8 @@
 var express = require('express');
 var path = require('path');
 var bodyParser  = require('body-parser');
-var excel = require('excel4node');
+
+var appjs = require('./app.js');
 
 var app = new express();
 var rootPath = path.normalize(__dirname+'/../');
@@ -10,15 +11,13 @@ app.use(express.static(rootPath+'/app'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.post('/savedata',function(req,res){
-    var data = req.body;
-    console.log(req.body);
-    res.send(data);
-});
+app.get('/fakedata',appjs.generateFakeData);
+
+app.post('/savedata',appjs.saveToExcel);
 
 /*var saveMethod = function(req,res){
     var data = req.body;
     console.log(data);
 }*/
 
-app.listen(3000,()=>console.log('App listening at 3000'));
+app.listen(3000,()=>console.log('Navigate to localhost:3000 in chrome'));
