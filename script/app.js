@@ -6,27 +6,28 @@ var xlsx = require('node-xlsx');
 var xl = require('excel4node');
 
 var Excel = require('exceljs');
+var rn = require('random-number');
+
+var options2 = {
+        min:  1,
+        max: 9,
+        integer: true
+    };
 
 module.exports.generateFakeData = function(req,res){
     
     var fakeData = {};
-    //fakeData.rid = faker.random.alphaNumeric(10);
-
-    /*console.log('rid :- '+faker.random.alphaNumeric(10));
-    console.log('name :- '+faker.name.findName());
-    console.log('email :- '+faker.internet.email());
-    console.log('contact :- '+faker.phone.phoneNumber());
-    console.log('gender :- '+faker.random.alphaNumeric());
-    console.log('message :- '+faker.lorem.lines());
-    console.log('mailOffers :- '+faker.random.boolean());
-    console.log('primeMember :- '+faker.random.boolean());
-    */
     
-    fakeData.rid = faker.random.alphaNumeric(10);
+    var options = {
+        min:  100000,
+        max: 999999,
+        integer: true
+    };
+    
+    fakeData.rid = rn(options);
     fakeData.name = faker.name.findName();
     fakeData.email = faker.internet.email();
     fakeData.contact = faker.phone.phoneNumber();
-    //console.log('phone :- '+faker.phone.phoneNumberFormat());
     fakeData.gender = 'Others';
     fakeData.message = faker.lorem.lines();
     fakeData.mailOffers = faker.random.boolean();
@@ -38,73 +39,76 @@ module.exports.generateFakeData = function(req,res){
     res.end();
 };
 
+function getDate(){
+    var dte = new Date();
+    var str = '';
+    var date = dte.getDate()<10 ?'0'+dte.getDate():dte.getDate();
+    var month = (dte.getMonth())+1<10 ?'0'+(dte.getMonth()+1):(dte.getMonth()+1);
+    var year = dte.getFullYear();
+    var hh = dte.getHours()<10?'0'+dte.getHours():dte.getHours();
+    var mm = dte.getMinutes()<10?'0'+dte.getMinutes():dte.getMinutes();
+    var ss = dte.getSeconds()<10?'0'+dte.getSeconds():dte.getSeconds();
+    str = str+date+month+year+hh+mm+ss;
+    return str;
+}
+
 module.exports.saveToExcel  = function(req,res){
-var data = req.body;
     
-
+    var data = req.body;
+    var workbook = new Excel.Workbook(); 
       
-     // var sheet = workbook.addWorksheet('My Sheet');   
- 
-/*if (!fs.existsSync(__dirname+'/exex.xlsx')) {
-      console.log('true');
-      var sheet = workbook.addWorksheet('My Sheet');   
-  }*/
-//workbook.eachSheet(function(worksheet, sheetId) {
-    
-//});
-    
-    if(!global['workbook']){
-        console.log('In Workbook');
-      var workbook = new Excel.Workbook();  
-        global['workbook']=workbook;
-    }else{
-        workbook = global['workbook'];
-    }
-    
-    if(!global['sheet']){
-      var sheet = workbook.addWorksheet('My Sheet');
-        global['sheet'] = sheet;
-    }else{
-        sheet = global['sheet'];
-    }
-    
-    if(!global['worksheet']){
-      var worksheet = workbook.getWorksheet('My Sheet');
+    var sheet = workbook.addWorksheet('My Sheet');
+   
+    var worksheet = workbook.getWorksheet('My Sheet');
        worksheet.columns = [
-            { header: 'Id', key: 'id', width: 10 },
-            { header: 'Name', key: 'name', width: 32 },
-            { header: 'D.O.B.', key: 'DOB', width: 10, outlineLevel: 1 }
+            
+           { header: 'Name', key: 'name'},
+           { header: 'Reservation Id', key: 'rid'},
+           { header: 'Email', key: 'email'},
+           { header: 'Contact', key: 'contact' },
+           { header: 'Gender', key: 'gender'},
+           { header: 'Message', key: 'message'},
+           { header: 'Mail', key: 'mail'},
+           { header: 'PrimeMember', key: 'prime'},
         ];
-        global['worksheet'] = worksheet;
-    }else{
-        worksheet = global['worksheet'];
-    }
+         worksheet.columns.forEach(column => {
+            column.width = column.header.length < 25 ? 25 : column.header.length
+        });
+        
+        worksheet.properties.outlineLevelCol = 2;
+        worksheet.properties.defaultRowHeight = 25;
+        
     
-//var worksheet = workbook.getWorksheet('My Sheet');
-    /*
-    worksheet.columns = [
-    { header: 'Id', key: 'id', width: 10 },
-    { header: 'Name', key: 'name', width: 32 },
-    { header: 'D.O.B.', key: 'DOB', width: 10, outlineLevel: 1 }
-];
-    */
-
-  /*  
-worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
-worksheet.addRow({id: 2, name: 'Jane Doe', dob: new Date(1965,1,7)});
-worksheet.addRow([3, 'Sam', new Date()]);
-worksheet.addRow({id: 4, name: 'Don Jon', dob: new Date()});
-    worksheet.addRow({id: 5, name: 'Don Jon', dob: new Date()});
-*/    
-    worksheet.addRow({id: data.rid, name: data.name, DOB: data.gender});
+   
+        var reserId = String(data.rid);
+        var origrid='';
+        for(var i=0;i<reserId.length;i++){
+            if(reserId[i].charCodeAt(0) > 47 && reserId[i].charCodeAt(0) < 58){
+                origrid = origrid+reserId[i];
+            }else
+                {
+                    origrid = origrid+String(rn(options2));
+                }
+        }
     
-    workbook.xlsx.writeFile(__dirname+'/exex.xlsx')
-    .then(function() {
-        console.log('Data Added to Sheet');
-    });
+        var fileName = origrid+getDate();
+        
+        console.log(data);
+        console.log(data.mailOffers);
+        console.log(typeof data.mailOffers);
+        //console.log(Boolean(data.mailOffers));
+        console.log(data.primeMember);
+        //console.log(Boolean(data.primeMember));
+    
+       
+        worksheet.addRow({ rid:origrid,name: data.name, email: data.email,contact:data.contact, gender:data.gender, message:data.message, mail:data.offersMail,prime:data.primeUser});
+
+        workbook.xlsx.writeFile(__dirname+'/'+fileName+'.xlsx')
+        .then(function() {
+            console.log('Data Added to Sheet');
+        });
 
     
-
-res.send();
+    res.send();
 };
 

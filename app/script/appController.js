@@ -1,6 +1,7 @@
 excelApp.controller('appController',function($scope,excelAppService){
 
     $scope.data = {gender:'Female'};
+    //$scope.data.offersMail = $scope.check;
     
     $scope.check = false;
     $scope.chkRad = false;
@@ -13,12 +14,27 @@ excelApp.controller('appController',function($scope,excelAppService){
         //$scope.check = !$scope.check;
         if($scope.check == false){
             $scope.check = true;
+            $scope.data.offersMail = true;
             chk.setAttribute('checked','checked');
         }else{
             $scope.check = false;
+            $scope.data.offersMail = false;
             chk.removeAttribute('checked');
         }
-    }
+    };
+    
+    $scope.checkMethodInp = function(){
+        
+        var chk = document.getElementById('chkbox');
+     
+        if($scope.check == true){
+            chk.setAttribute('checked','checked');
+            //$scope.data.primeUser = true;
+        }else{
+            chk.removeAttribute('checked');
+            //$scope.data.primeUser = false;
+        }
+    };
     
     $scope.checkRadio = function(){
         var yesRad = document.getElementById('yesradio');
@@ -27,10 +43,25 @@ excelApp.controller('appController',function($scope,excelAppService){
         
         if($scope.chkRad == true){
             yesRad.checked = true;
+            //$scope.data.primeUser = true;
         }else{
             noRad.checked = true;
-        }
+            //$scope.data.primeUser = false;
+        }  
+    }
+    
+    $scope.setRadioTrue = function(){
+        var yesRad2 = document.getElementById('yesradio');
         
+            yesRad2.checked = true;
+            $scope.data.primeUser = true;
+    }
+    
+    $scope.setRadioFalse = function(){
+           var noRad2 = document.getElementById('noradio');
+        
+            noRad2.checked = true;
+            $scope.data.primeUser = false;
     }
     
     
@@ -49,7 +80,7 @@ excelApp.controller('appController',function($scope,excelAppService){
                 $scope.data.primeUser = response.primeMember;
                 
                 $scope.check = response.mailOffers;
-                $scope.checkMethod();
+                $scope.checkMethodInp();
                 
                 $scope.chkRad = response.primeMember;
                 $scope.checkRadio();
@@ -59,9 +90,8 @@ excelApp.controller('appController',function($scope,excelAppService){
     }
     
     $scope.saveData = function(data){
-        //console.log(data);
-        //console.log(form);
-
+        
+        console.log(data);
         excelAppService.saveData(data)
         .$promise.then(
             function(response){console.log('Success',response)},
